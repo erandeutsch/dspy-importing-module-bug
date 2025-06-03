@@ -2,6 +2,18 @@
 
 Minimal Python example reproducing a dspy module import/save bug.
 
+## Update: Fixed in dspy 2.6.25!
+
+With the new support for [custom imported module serialization with cloudpickle](https://github.com/stanfordnlp/dspy/pull/8286), this issue is now fixed! Any dspy programs that use imported signatures can be fixed in the following way:
+```
+import ExtractInfo
+module = dspy.Predict(ExtractInfo.ExtractInfo)
+module.save("testModule", save_program=True, modules_to_serialize=[ExtractInfo])
+```
+
+For more info, see the new [Serializing Imported Modules](https://dspy.ai/tutorials/saving/#:~:text=modules_to_serialize) section in the Saving and Loading tutorial.
+
+
 ## Overview
 
 This repository demonstrates an issue when using the current version of dspy (2.6.24): a saved module cannot be reliably loaded from a different directory if it uses an imported signature from another file. 
